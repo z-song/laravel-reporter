@@ -13,6 +13,8 @@ class ReporterServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->loadViewsFrom(__DIR__.'/../views', 'reporter');
+
         $this->publishes([
             __DIR__.'/../config/reporter.php' => config_path('reporter.php')
         ], 'laravel-reporter');

@@ -14,9 +14,4 @@ class Exception extends Model
 
         parent::__construct($attributes);
     }
-
-    public function tags()
-    {
-        return $this->belongsToMany(Tag::class, 'laravel_exceptions_to_tags', 'exception_id', 'tag_id');
-    }
 }

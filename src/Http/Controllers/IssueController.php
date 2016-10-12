@@ -8,14 +8,6 @@ class IssueController extends BaseController
 {
     public function index()
     {
-        try {
-            try {
-                throw new \Exception();
-            } catch (\Exception $e) {
-                throw $e;
-            }
-        } catch (\Exception $e) {
-            throw $e;
-        }
+        return view('reporter::issue-list');
     }
 }
