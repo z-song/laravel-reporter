@@ -86,7 +86,7 @@ class Reporter
     public function stringify($data)
     {
         return array_map(function ($item) {
-            return is_array($item) ? json_encode($item) : (string) $item;
+            return is_array($item) ? json_encode($item, JSON_OBJECT_AS_ARRAY) : (string) $item;
         }, $data);
     }
 

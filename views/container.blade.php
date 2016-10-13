@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Overview</title>
+    <title>Exception Reporter</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
@@ -20,6 +20,16 @@
     <script src="{{ asset ("/packages/admin/AdminLTE/bootstrap/js/bootstrap.min.js") }}"></script>
     <script src="{{ asset ("/packages/admin/AdminLTE/dist/js/app.min.js") }}"></script>
     <script src="{{ asset ("/packages/admin/jquery-pjax/jquery.pjax.js") }}"></script>
+
+    <script src="{{ asset ("/packages/admin/code-pretty/run_prettify.js") }}"></script>
+
+    <style>
+
+        .prettyprint ol.linenums > li { list-style-type: decimal;background: #FFFFFF; }
+        pre.prettyprint { background: #FFFFFF; border-radius: 0;margin: 10px 0 0 0;border: 0;}
+        .prettyprint ol.linenums > li.active { list-style-type: decimal;background: #f5dfdf; }
+
+    </style>
 
 </head>
 
@@ -80,7 +90,25 @@
     </footer>
 </div>
 
+
+
 <script>
+
+    $(function () {
+
+        var highlightLine = function () {
+            $('pre.prettyprint').each(function (index, pre) {
+                var active_line = $(pre).data('active');
+                var start_line = $(pre).data('start-line');
+
+                var $active = $(pre).find('li:eq('+ (active_line-start_line) +')').addClass('active');
+            });
+        };
+
+        setTimeout(function () {
+            highlightLine();
+        }, 500);
+    });
 
     $(document).pjax('a:not(a[target="_blank"])', '#pjax-container');
 
