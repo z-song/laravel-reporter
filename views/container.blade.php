@@ -28,6 +28,13 @@
         .prettyprint ol.linenums > li { list-style-type: decimal;background: #FFFFFF; }
         pre.prettyprint { background: #FFFFFF; border-radius: 0;margin: 10px 0 0 0;border: 0;}
         .prettyprint ol.linenums > li.active { list-style-type: decimal;background: #f5dfdf; }
+        .args .name {width: 100px;}
+        .args .value {color: #005384}
+        .parameter .name {padding: 5px;}
+        .parameter .value {padding: 5px;background-color: #f7f8f9;word-wrap: break-word; }
+        .parameter dt,.parameter dd {padding: 3px;}
+
+        .navbar-ext {border-bottom: 1px solid #d5cfdb !important;box-shadow: 0 2px 0 rgba(0,0,0,.03);margin-left:0px !important;padding-left: 30px;}
 
     </style>
 
@@ -38,49 +45,42 @@
 
     <!-- Main Header -->
     <header class="main-header">
-
-        <!-- Logo -->
-
         <!-- Header Navbar -->
-        <nav class="navbar navbar-static-top" role="navigation">
-            <!-- Sidebar toggle button-->
-            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-                <span class="sr-only">Toggle navigation</span>
-            </a>
-            <!-- Navbar Right Menu -->
-            <div class="navbar-custom-menu">
-                <ul class="nav navbar-nav">
-                    <!-- User Account Menu -->
-                    <li class="dropdown user user-menu">
-                        <!-- Menu Toggle Button -->
-                        <a href="#" class="dropdown-toggle">
-                            <!-- The user image in the navbar-->
+        <nav class="navbar navbar-static-top navbar-ext" role="navigation">
+            <div class="container" style="margin-left: 0px;margin-right: 0px;width:100%;padding-right:0px;">
+                <div class="navbar-header">
+                    <a href="javascript:void(0);" class="navbar-brand"><b>Laravel</b> reporter</a>
+                </div>
 
-                            <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                            <span class="hidden-xs"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;logout</span>
-                        </a>
-                    </li>
-                </ul>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="/{{ config('reporter.base_uri') }}/exceptions">Exceptions <span class="sr-only">(current)</span></a></li>
+                        <li><a href="javascript:void(0);">Overview</a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+                <!-- Navbar Right Menu -->
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <!-- Tasks Menu -->
+                        <li class="dropdown tasks-menu">
+                            <!-- Menu Toggle Button -->
+                            <a href="/{{ config('reporter.base_uri') }}/auth/logout">
+                                <i class="fa fa-sign-out"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-custom-menu -->
             </div>
         </nav>
     </header>
 
-    <aside class="main-sidebar">
-
-        <!-- sidebar: style can be found in sidebar.less -->
-        <section class="sidebar">
-
-            <!-- /.sidebar-menu -->
-        </section>
-        <!-- /.sidebar -->
-    </aside>
-
-    <div class="content-wrapper" id="pjax-container">
+    <div class="content-wrapper" id="pjax-container" style="margin-left: 0px !important">
         @yield('content')
     </div>
 
     <!-- Main Footer -->
-    <footer class="main-footer">
+    <footer class="main-footer" style="margin-left: 0px !important;">
         <!-- To the right -->
         <div class="pull-right hidden-xs">
             <strong>Version</strong>&nbsp;&nbsp; 1.0
@@ -90,25 +90,7 @@
     </footer>
 </div>
 
-
-
 <script>
-
-    $(function () {
-
-        var highlightLine = function () {
-            $('pre.prettyprint').each(function (index, pre) {
-                var active_line = $(pre).data('active');
-                var start_line = $(pre).data('start-line');
-
-                var $active = $(pre).find('li:eq('+ (active_line-start_line) +')').addClass('active');
-            });
-        };
-
-        setTimeout(function () {
-            highlightLine();
-        }, 500);
-    });
 
     $(document).pjax('a:not(a[target="_blank"])', '#pjax-container');
 

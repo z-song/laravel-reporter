@@ -57,6 +57,10 @@ class Frame
             $this->attributes['method'] = $matches[2];
             $this->attributes['args'] = $this->extractArgs($matches[3]);
 
+            if (Str::contains($matches[2], ['{closure}']) && array_get($this->attributes, 'name') == '[internal function]') {
+                $this->attributes['name'] .= " $matches[1]->$matches[2]";
+            }
+
         // class method call
         } else {
             preg_match('/([^(]+)\((.*)\)/', $str, $matches);
@@ -74,14 +78,19 @@ class Frame
         $method     = array_get($this->attributes, 'method');
 
         if ((! $filename || ! $lineNo) && ($class && $method)) {
-            $reflection = new \ReflectionClass($class);
-            $filename = $reflection->getFileName();
 
-            if (!$reflection->hasMethod($method)) {
+            if (!class_exists($class)) {
+                return;
+            }
+            $classReflection = new \ReflectionClass($class);
+            $filename = $classReflection->getFileName();
+
+            if (!$classReflection->hasMethod($method)) {
                 return;
             }
 
-            $methodReflection = $reflection->getMethod($method);
+            $methodReflection = $classReflection->getMethod($method);
+            
             $lineNo = $methodReflection->getStartLine();
         }
 
@@ -134,6 +143,48 @@ class Frame
     public function method()
     {
         return array_get($this->attributes, 'method', array_get($this->attributes, 'function', ''));
+    }
+
+    public function args()
+    {
+        if (empty ($this->attributes['args'])) {
+            return [];
+        }
+
+        $args = [];
+        $names = $this->getParameterNames();
+
+        foreach ($this->attributes['args'] as $key => $val) {
+            $args[array_get($names, $key, "param$key")] = $val;
+        }
+
+        return $args;
+    }
+
+    /**
+     * @param \ReflectionParameter[] $parameterReflections
+     */
+    public function getParameterNames()
+    {
+        $names = [];
+
+        $class = array_get($this->attributes, 'class');
+        $method = array_get($this->attributes, 'method');
+
+
+        if ($class && isset($method)) {
+            $classReflection = new \ReflectionClass($class);
+
+            if (! $classReflection->hasMethod($method)) {
+                return $names;
+            }
+
+            foreach ($classReflection->getMethod($method)->getParameters() as $reflection) {
+                $names[] = $reflection->getName();
+            }
+        }
+
+        return $names;
     }
 
     protected function extractArgs($args)

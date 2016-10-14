@@ -113,6 +113,7 @@ class Reporter
         $exception->body    = $data['body'];
         $exception->cookies = $data['cookies'];
         $exception->headers = $data['headers'];
+        $exception->ip      = $data['ip'];
 
         return $exception->save();
     }

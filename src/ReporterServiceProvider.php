@@ -2,6 +2,7 @@
 
 namespace Encore\Reporter;
 
+use Encore\Reporter\Http\Middleware\PjaxMiddleware;
 use Illuminate\Support\ServiceProvider;
 
 class ReporterServiceProvider extends ServiceProvider
@@ -34,5 +35,7 @@ class ReporterServiceProvider extends ServiceProvider
         $this->app->singleton('reporter', function ($app) {
             return new Reporter($app);
         });
+
+        app('router')->middleware('pjax', PjaxMiddleware::class);
     }
 }
