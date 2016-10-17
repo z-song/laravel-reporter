@@ -4,21 +4,40 @@ namespace Encore\Reporter\Http\Controllers;
 
 use Encore\Reporter\Models\Exception;
 use Encore\Reporter\Trace\Parser;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Arr;
 
 class ExceptionController extends BaseController
 {
-    public function index()
+    public function issues()
     {
-        $exceptions = Exception::orderBy('id', 'desc')->paginate();
+        $paginator = Exception::getIssues()->paginate();
+
+        $models = Exception::hydrate($paginator->items());
+
+        $paginator->setCollection($models);
 
         $methodColor = Exception::$methodColor;
 
-        $types = Exception::groupBy('name')->selectRaw('count(id) as count, name')
-            ->get();
+        return view('reporter::issues', compact('paginator', 'methodColor'));
+    }
 
-        return view('reporter::list', compact('exceptions', 'methodColor', 'types'));
+    public function index(Request $request)
+    {
+        $query = Exception::query();
+
+        if ($request->has('type')) {
+            $query->where('type', $request->get('type'));
+        }
+
+        $exceptions = $query->orderBy('id', 'desc')->paginate()->appends($request->all());
+
+        $methodColor = Exception::$methodColor;
+
+        $type = $request->get('type');
+
+        return view('reporter::list', compact('exceptions', 'methodColor', 'type'));
     }
 
     public function show($id)

@@ -17,7 +17,8 @@ class ReporterServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/../views', 'reporter');
 
         $this->publishes([
-            __DIR__.'/../config/reporter.php' => config_path('reporter.php')
+            __DIR__.'/../config/reporter.php' => config_path('reporter.php'),
+            __DIR__.'/../assets' => public_path('vendor/laravel-reporter'),
         ], 'laravel-reporter');
 
         if (file_exists($routes = __DIR__.'/Http/routes.php')) {

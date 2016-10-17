@@ -100,7 +100,7 @@ class Reporter
     {
         $exception = new ExceptionModel();
 
-        $exception->name    = $data['exception'];
+        $exception->type    = $data['exception'];
         $exception->code    = $data['code'];
         $exception->message = $data['message'];
         $exception->file    = $data['file'];

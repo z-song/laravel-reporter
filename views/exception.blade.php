@@ -57,7 +57,7 @@
                 <div class="box box-solid">
                     <div class="box-header with-border">
                         <i class="ion ion-clipboard"></i>
-                        <h3 class="box-title"><strong>{{ $exception->name }}</strong></h3>
+                        <h3 class="box-title"><strong><a href="/{{ config('reporter.base_uri') }}/exceptions?type={{ $exception->type }}">{{ $exception->type }}</a></strong></h3>
                     </div><!-- /.box-header -->
                     <div class="box-body">
 

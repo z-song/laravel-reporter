@@ -7,21 +7,17 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-    <link rel="stylesheet" href="{{ asset("/packages/admin/AdminLTE/bootstrap/css/bootstrap.min.css") }}">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset("/packages/admin/font-awesome/css/font-awesome.min.css") }}">
-
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset("/packages/admin/AdminLTE/dist/css/skins/skin-black.min.css") }}">
-    <link rel="stylesheet" href="{{ asset("/packages/admin/AdminLTE/dist/css/AdminLTE.min.css") }}">
+    <link rel="stylesheet" href="{{ asset("/vendor/laravel-reporter/AdminLTE/bootstrap/css/bootstrap.min.css") }}">
+    <link rel="stylesheet" href="{{ asset("/vendor/laravel-reporter/font-awesome/css/font-awesome.min.css") }}">
+    <link rel="stylesheet" href="{{ asset("/vendor/laravel-reporter/AdminLTE/dist/css/skins/skin-black.min.css") }}">
+    <link rel="stylesheet" href="{{ asset("/vendor/laravel-reporter/AdminLTE/dist/css/AdminLTE.min.css") }}">
 
     <!-- REQUIRED JS SCRIPTS -->
-    <script src="{{ asset ("/packages/admin/AdminLTE/plugins/jQuery/jQuery-2.1.4.min.js") }}"></script>
-    <script src="{{ asset ("/packages/admin/AdminLTE/bootstrap/js/bootstrap.min.js") }}"></script>
-    <script src="{{ asset ("/packages/admin/AdminLTE/dist/js/app.min.js") }}"></script>
-    <script src="{{ asset ("/packages/admin/jquery-pjax/jquery.pjax.js") }}"></script>
-
-    <script src="{{ asset ("/packages/admin/code-pretty/run_prettify.js") }}"></script>
+    <script src="{{ asset ("/vendor/laravel-reporter/AdminLTE/plugins/jQuery/jQuery-2.1.4.min.js") }}"></script>
+    <script src="{{ asset ("/vendor/laravel-reporter/AdminLTE/bootstrap/js/bootstrap.min.js") }}"></script>
+    <script src="{{ asset ("/vendor/laravel-reporter/AdminLTE/dist/js/app.min.js") }}"></script>
+    <script src="{{ asset ("/vendor/laravel-reporter/jquery-pjax/jquery.pjax.js") }}"></script>
+    <script src="{{ asset ("/vendor/laravel-reporter/code-pretty/run_prettify.js") }}"></script>
 
     <style>
 
@@ -55,7 +51,7 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="/{{ config('reporter.base_uri') }}/exceptions">Exceptions <span class="sr-only">(current)</span></a></li>
+                        <li class="active"><a href="/{{ config('reporter.base_uri') }}/issues">Issues <span class="sr-only">(current)</span></a></li>
                         <li><a href="javascript:void(0);">Overview</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->

@@ -4,7 +4,7 @@ app('router')->group(
     [
         'prefix'    => config('reporter.base_uri'),
         'namespace' => 'Encore\\Reporter\\Http\\Controllers',
-        'middleware' => ['pjax',],
+        'middleware' => ['pjax'],
     ],
     function (\Illuminate\Routing\Router $router) {
 
@@ -12,6 +12,7 @@ app('router')->group(
         $router->post('auth/login', 'AuthController@postLogin');
         $router->get('auth/logout', 'AuthController@getLogout');
 
+        $router->get('issues', 'ExceptionController@issues');
         $router->resource('exceptions', ExceptionController::class);
     }
 );
