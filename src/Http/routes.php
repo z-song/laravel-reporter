@@ -8,10 +8,6 @@ app('router')->group(
     ],
     function (\Illuminate\Routing\Router $router) {
 
-        $router->get('auth/login', 'AuthController@getLogin');
-        $router->post('auth/login', 'AuthController@postLogin');
-        $router->get('auth/logout', 'AuthController@getLogout');
-
         $router->get('issues', 'ExceptionController@issues');
         $router->resource('exceptions', ExceptionController::class);
     }
